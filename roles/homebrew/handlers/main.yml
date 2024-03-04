@@ -1,0 +1,104 @@
+---
+- name: Create NVM directory
+  ansible.builtin.file:
+    path: "{{ ansible_env.HOME }}/.nvm"
+    state: directory
+    mode: "0755"
+  listen: Setup nvm
+  tags:
+   - Setup nvm
+- name: Add NVM init to .zshrc
+  ansible.builtin.blockinfile:
+    path: "{{ ansible_env.HOME }}/.zshrc"
+    block: |
+      export NVM_DIR="$HOME/.nvm"
+      [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
+      [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
+    marker: "# {mark} ANSIBLE MANAGED BLOCK: NVM setup"
+    create: true
+    mode: "0644"
+  listen: Setup nvm
+  tags:
+   - Setup nvm
+
+- name: Setup zoxide
+  ansible.builtin.lineinfile:
+    path: "{{ ansible_env.HOME }}/.zshrc"
+    line: 'eval "$(zoxide init --cmd cd zsh)"'
+    create: true
+    state: present
+    mode: "0644"
+
+- name: Install GVM
+  ansible.builtin.get_url:
+    url: "{{ homebrew_repo_url.gvm }}"
+    dest: "/tmp/gvm-installer.sh"
+    mode: "0755"
+  listen: Setup gvm
+  tags:
+   - Setup gvm
+
+- name: Run GVM installer
+  ansible.builtin.command: /tmp/gvm-installer.sh
+  changed_when: false
+  listen: Setup gvm
+  tags:
+   - Setup gvm
+  
+- name: Remove GVM installer
+  ansible.builtin.file:
+    path: /tmp/gvm-installer.sh
+    state: absent
+  listen: Setup gvm
+  tags:
+   - Setup gvm
+
+- name: Setup vscode
+  ansible.builtin.debug:
+    msg: "Replace this with actual tasks for configuring VSCode."
+    tags:
+      - vscode
+
+- name: Init conda
+  ansible.builtin.shell: conda init zsh
+  changed_when: false
+  args:
+    executable: /bin/zsh
+
+- name: Export WARP_THEMES_DIR in .zshrc
+  ansible.builtin.lineinfile:
+    path: "{{ ansible_env.HOME }}/.zshrc"
+    line: 'export WARP_THEMES_DIR="$HOME/.warp/themes"'
+    state: present
+    create: true
+    mode: "0644"
+  listen: Setup warp
+  tags:
+    - warp_themes
+- name: Create WARP_THEMES_DIR
+  ansible.builtin.file:
+    path: "{{ ansible_env.HOME }}/.warp/themes"
+    state: directory
+    mode: "0755"
+  listen: Setup warp
+  tags:
+    - warp_theme
+- name: Download Catppuccin themes for Warp
+  ansible.builtin.get_url:
+    url: "{{ repo_url.catpuccin_warp }}/{{ item }}"
+    dest: "{{ ansible_env.HOME }}/.warp/themes/{{ item }}"
+    mode: "0644"
+  loop:
+    - catppuccin_latte.yml
+    - catppuccin_frappe.yml
+    - catppuccin_macchiato.yml
+    - catppuccin_mocha.yml
+  listen: Setup warp
+  tags:
+    - warp_themes
+
+- name: Skip handler
+  ansible.builtin.debug:
+    msg: "No handler actions required for this package."
+    tags:
+      - handler

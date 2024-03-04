@@ -1,0 +1,9 @@
+---
+- name: Setup MacBook
+  gather_facts: true
+  hosts: local
+  roles:
+    - xcode
+    - oh-my-zsh
+    - homebrew
+    - dotfiles

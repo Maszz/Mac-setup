@@ -1,0 +1,52 @@
+- name: Install Zsh if not already installed
+  community.general.homebrew:
+    name: zsh
+    state: present
+  tags:
+    - zsh
+
+- name: Check if Oh My Zsh is installed
+  ansible.builtin.stat:
+    path: ~/.oh-my-zsh
+  register: oh_my_zsh_installed
+  tags:
+    - oh_my_zsh
+
+- name: Install Oh My Zsh
+  ansible.builtin.shell: sh -c "$(curl -fsSL {{ repo_url.oh_my_zsh }})"
+  when: not oh_my_zsh_installed.stat.exists
+  args:
+    executable: /bin/zsh
+    creates: ~/.oh-my-zsh
+  tags:
+    - oh_my_zsh
+
+- name: Install Powerlevel10k theme
+  # noqa: latest
+  ansible.builtin.git:
+    repo: "{{ repo_url.powerlevel10k }}"
+    dest: ~/.oh-my-zsh/custom/themes/powerlevel10k
+    clone: true
+    update: true
+  tags:
+    - powerlevel10k
+
+- name: Set ZSH_THEME to Powerlevel10k
+  ansible.builtin.lineinfile:
+    path: ~/.zshrc
+    regexp: "^ZSH_THEME="
+    line: 'ZSH_THEME="powerlevel10k/powerlevel10k"'
+    state: present
+    create: true
+    mode: "0644"
+  tags:
+    - powerlevel10k
+- name: Export Brew path
+  ansible.builtin.lineinfile:
+    path: ~/.zshrc
+    line: 'export PATH="/opt/homebrew/bin:$PATH"'
+    state: present
+    create: true
+    mode: "0644"
+  tags:
+    - homebrew

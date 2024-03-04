@@ -1,0 +1,41 @@
+- name: Check if Homebrew is installed
+  ansible.builtin.command: brew --version
+  register: brew_installed
+  changed_when: false
+  ignore_errors: true
+  tags:
+    - homebrew
+
+- name: Install Homebrew if not installed
+  ansible.builtin.command: /bin/bash -c "$(curl -fsSL {{ homebrew_repo_url.brew }})"
+  changed_when: brew_installed is failed
+  tags:
+    - homebrew
+  when: brew_installed is failed
+  register: homebrew_install_result
+
+- name: Log Homebrew installation status
+  ansible.builtin.debug:
+    msg: "Homebrew installation status: {{ 'Already installed' if not homebrew_install_result.changed else 'Installed successfully' }}"
+  when: homebrew_install_result is defined
+  tags:
+    - homebrew
+
+- name: Install Homebrew packages
+  community.general.homebrew:
+    name: "{{ item.name }}"
+    state: present
+  loop: "{{ homebrew_packages }}"
+  notify: "{{ item.handler | default('Skip handler') }}"
+  tags:
+    - homebrew_packages
+
+- name: Install Homebrew Cask applications
+  community.general.homebrew_cask:
+    name: "{{ item.name }}"
+    state: present
+    sudo_password: "{{ ansible_sudo_pass }}"
+  loop: "{{ homebrew_casks }}"
+  notify: "{{ item.handler | default('Skip handler') }}"
+  tags:
+    - homebrew_casks

@@ -1,0 +1,25 @@
+# - name: Clone .config directory from GitHub
+#   ansible.builtin.git:
+#     repo: "{{ config_repo_url }}"
+#     dest: "{{ ansible_env.HOME }}/.config"
+#     clone: true
+#     update: true
+#   tags:
+#     - dotfiles
+- name: Check if ~/.config directory already exists
+  ansible.builtin.stat:
+    path: "{{ ansible_env.HOME }}/.config"
+  register: config_directory_exists
+  tags:
+    - dotfiles
+
+- name: Clone .config directory from GitHub if it doesn't exist
+  # noqa: latest
+  ansible.builtin.git:
+    repo: "{{ dotfiles_repo_url.dotfile }}"
+    dest: "{{ ansible_env.HOME }}/.config"
+    clone: true
+    update: true
+  when: not config_directory_exists.stat.exists
+  tags:
+    - dotfiles

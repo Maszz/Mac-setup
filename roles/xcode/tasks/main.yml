@@ -1,0 +1,14 @@
+- name: Check if Xcode Command Line Tools are installed
+  ansible.builtin.command: xcode-select -p
+  changed_when: false
+  register: xcode_installed
+  ignore_errors: true
+  tags:
+    - xcode
+
+- name: Install Xcode Command Line Tools if not installed
+  ansible.builtin.command: xcode-select --install
+  changed_when: false
+  when: xcode_installed.rc != 0
+  tags:
+    - xcode

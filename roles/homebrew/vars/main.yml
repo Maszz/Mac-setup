@@ -1,0 +1,32 @@
+homebrew_repo_url:
+  brew: "https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh"
+  gvm: "https://raw.githubusercontent.com/moovweb/gvm/master/binscripts/gvm-installer"
+homebrew_packages:
+  - name: gh
+  - name: wget
+  - name: bat
+  - name: ripgrep
+  - name: fd
+  - name: fzf
+  - name: zoxide
+    handler: Setup zoxide
+  - name: neovim
+  - name: node
+  - name: nvm
+    handler: Setup nvm
+  - name: golang
+    handler: Setup gvm
+homebrew_casks:
+  - name: google-chrome
+  - name: arc
+  - name: Warp
+    handler: Setup warp
+  - name: visual-studio-code
+    handler: Setup vscode
+  - name: miniconda
+    handler: Init conda
+  - name: obsidian
+  - name: docker
+  - name: raycast
+  - name: zed
+  - name: gpg-suite
