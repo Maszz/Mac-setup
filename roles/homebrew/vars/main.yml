@@ -17,6 +17,7 @@ homebrew_packages:
     handler: Setup nvm
   - name: golang
     handler: Setup gvm
+  - name: lazyvim
 homebrew_casks:
   - name: google-chrome
   - name: arc
@@ -31,3 +32,6 @@ homebrew_casks:
   - name: raycast
   - name: zed
   - name: gpg-suite
+  - name: postman
+  - name: fig
+  - name: iterm2

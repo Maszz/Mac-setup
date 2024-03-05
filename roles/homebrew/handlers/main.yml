@@ -6,7 +6,7 @@
     mode: "0755"
   listen: Setup nvm
   tags:
-   - Setup nvm
+    - Setup nvm
 - name: Add NVM init to .zshrc
   ansible.builtin.blockinfile:
     path: "{{ ansible_env.HOME }}/.zshrc"
@@ -19,7 +19,7 @@
     mode: "0644"
   listen: Setup nvm
   tags:
-   - Setup nvm
+    - Setup nvm
 
 - name: Setup zoxide
   ansible.builtin.lineinfile:
@@ -36,14 +36,14 @@
     mode: "0755"
   listen: Setup gvm
   tags:
-   - Setup gvm
+    - Setup gvm
 
 - name: Run GVM installer
   ansible.builtin.command: /tmp/gvm-installer.sh
   changed_when: false
   listen: Setup gvm
   tags:
-   - Setup gvm
+    - Setup gvm
 
 - name: Remove GVM installer
   ansible.builtin.file:
@@ -51,7 +51,7 @@
     state: absent
   listen: Setup gvm
   tags:
-   - Setup gvm
+    - Setup gvm
 
 - name: Setup vscode
   ansible.builtin.debug:
