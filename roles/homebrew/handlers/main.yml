@@ -44,7 +44,7 @@
   listen: Setup gvm
   tags:
    - Setup gvm
-  
+
 - name: Remove GVM installer
   ansible.builtin.file:
     path: /tmp/gvm-installer.sh
@@ -62,8 +62,6 @@
 - name: Init conda
   ansible.builtin.shell: conda init zsh
   changed_when: false
-  args:
-    executable: /bin/zsh
 
 - name: Export WARP_THEMES_DIR in .zshrc
   ansible.builtin.lineinfile:
