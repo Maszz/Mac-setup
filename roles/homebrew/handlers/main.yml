@@ -28,6 +28,20 @@
     create: true
     state: present
     mode: "0644"
+    listen: Setup zoxide
+    tags:
+      - Setup zoxide
+
+- name: Setup eza
+  ansible.builtin.linefile:
+    path: "{{ ansible_env.HOME }}/.zshrc"
+    line: 'alias ls="eza --icons --grid --classify --colour=auto --sort=type --group-directories-first --header --modified --created --git --binary --group"'
+    create: true
+    state: present
+    mode: "0644"
+    listen: Setup eza
+  tags:
+    - Setup eza
 
 - name: Install GVM
   ansible.builtin.get_url:

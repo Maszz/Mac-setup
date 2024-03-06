@@ -10,6 +10,8 @@ homebrew_packages:
   - name: fzf
   - name: zoxide
     handler: Setup zoxide
+  - name: eza
+    handler: Setup eza
   - name: neovim
   - name: node
   - name: nvm
