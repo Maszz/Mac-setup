@@ -50,3 +50,11 @@
     mode: "0644"
   tags:
     - homebrew
+
+- name: create alias custom directory
+  ansible.builtin.file:
+    path: "{{ ansible_env.HOME }}/.oh-my-zsh/custom/aliases.zsh"
+    state: directory
+    mode: "0755"
+  tags:
+    - aliases

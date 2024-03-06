@@ -34,7 +34,7 @@
 
 - name: Setup eza
   ansible.builtin.linefile:
-    path: "{{ ansible_env.HOME }}/.zshrc"
+    path: "{{ ansible_env.HOME }}/.oh-my-zsh/custom/aliases.zsh"
     line: 'alias ls="eza --icons --grid --classify --colour=auto --sort=type --group-directories-first --header --modified --created --git --binary --group"'
     create: true
     state: present
@@ -42,6 +42,17 @@
     listen: Setup eza
   tags:
     - Setup eza
+
+- name: Setup bat
+  ansible.builtin.lineinfile:
+    path: "{{ ansible_env.HOME }}/.oh-my-zsh/custom/aliases.zsh"
+    line: 'alias cat="bat"'
+    create: true
+    state: present
+    mode: "0644"
+    listen: Setup bat
+  tags:
+    - Setup bat
 
 - name: Install GVM
   ansible.builtin.get_url:

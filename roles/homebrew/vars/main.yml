@@ -5,6 +5,7 @@ homebrew_packages:
   - name: gh
   - name: wget
   - name: bat
+    handler: Setup bat
   - name: ripgrep
   - name: fd
   - name: fzf
