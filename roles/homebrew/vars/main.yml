@@ -14,7 +14,6 @@ homebrew_packages:
   - name: eza
     handler: Setup eza
   - name: neovim
-  - name: node
   - name: nvm
   - name: yarn
     handler: Setup nvm
