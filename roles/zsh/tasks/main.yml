@@ -1,0 +1,44 @@
+- name: Install Zsh if not already installed
+  community.general.homebrew:
+    name: zsh
+    state: present
+  tags:
+    - zsh
+
+- name: Export Brew path
+  ansible.builtin.lineinfile:
+    path: ~/.zshrc
+    line: 'export PATH="/opt/homebrew/bin:$PATH"'
+    state: present
+    create: true
+    mode: "0644"
+  tags:
+    - homebrew
+
+- name: create alias custom directory
+  ansible.builtin.file:
+    path: "{{ ansible_env.HOME }}/.zsh/aliases.zsh"
+    state: directory
+    mode: "0755"
+  tags:
+    - aliases
+
+- name: source base aliases
+  ansible.builtin.lineinfile:
+    path: ~/.zshrc
+    line: "[[ -f ~/.config/zsh/aliases.zsh ]] && source ~/.config/zsh/aliases.zsh"
+    state: present
+    create: true
+    mode: "0644"
+  tags:
+    - aliases
+
+- name: source custom aliases
+  ansible.builtin.lineinfile:
+    path: ~/.zshrc
+    line: "[[ -f ~/.zsh/aliases.zsh ]] && source ~/.zsh/aliases.zsh"
+    state: present
+    create: true
+    mode: "0644"
+  tags:
+    - aliases

@@ -33,8 +33,8 @@
       - Setup zoxide
 
 - name: Setup eza
-  ansible.builtin.linefile:
-    path: "{{ ansible_env.HOME }}/.oh-my-zsh/custom/aliases.zsh"
+  ansible.builtin.lineinfile:
+    path: "{{ ansible_env.HOME }}/.zsh/aliases.zsh"
     line: 'alias ls="eza --icons --grid --classify --colour=auto --sort=type --group-directories-first --header --modified --created --git --binary --group"'
     create: true
     state: present
@@ -45,7 +45,7 @@
 
 - name: Setup bat
   ansible.builtin.lineinfile:
-    path: "{{ ansible_env.HOME }}/.oh-my-zsh/custom/aliases.zsh"
+    path: "{{ ansible_env.HOME }}/.zsh/aliases.zsh"
     line: 'alias cat="bat"'
     create: true
     state: present
@@ -108,7 +108,7 @@
     - warp_theme
 - name: Download Catppuccin themes for Warp
   ansible.builtin.get_url:
-    url: "{{ repo_url.catpuccin_warp }}/{{ item }}"
+    url: "{{ homebrew_repo_url.catpuccin_warp }}/{{ item }}"
     dest: "{{ ansible_env.HOME }}/.warp/themes/{{ item }}"
     mode: "0644"
   loop:

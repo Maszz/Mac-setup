@@ -4,6 +4,6 @@
   hosts: local
   roles:
     - xcode
-    - oh-my-zsh
+    - zsh
     - homebrew
     - dotfiles

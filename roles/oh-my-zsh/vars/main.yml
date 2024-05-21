@@ -1,4 +1,0 @@
-repo_url:
-  oh_my_zsh: "https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh"
-  catpuccin_warp: "https://raw.githubusercontent.com/catppuccin/warp/main/dist"
-  powerlevel10k: "https://github.com/romkatv/powerlevel10k.git"
