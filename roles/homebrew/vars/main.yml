@@ -29,6 +29,8 @@ homebrew_packages:
   - name: poppler    
   - name: imagemagick
   - name: font-symbols-only-nerd-font
+  - name: starship
+    handler: Setup starship 
 homebrew_casks:
   - name: google-chrome
   - name: arc

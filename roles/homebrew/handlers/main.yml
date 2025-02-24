@@ -120,6 +120,17 @@
   tags:
     - warp_themes
 
+- name: Setup starship
+  ansible.builtin.lineinfile: 
+    path: "{{ ansible_env.HOME }}/.zshrc"
+    line: 'eval "$(starship init zsh)"'
+    create: true
+    state: present
+    mode: "0644"
+    listen: Setup starship
+    tags:
+      - Setup starship
+
 - name: Skip handler
   ansible.builtin.debug:
     msg: "No handler actions required for this package."
