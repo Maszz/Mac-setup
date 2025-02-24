@@ -28,8 +28,8 @@
     create: true
     state: present
     mode: "0644"
-    listen: Setup zoxide
-    tags:
+  listen: Setup zoxide
+  tags:
       - Setup zoxide
 
 - name: Setup eza
@@ -39,7 +39,7 @@
     create: true
     state: present
     mode: "0644"
-    listen: Setup eza
+  listen: Setup eza
   tags:
     - Setup eza
 
@@ -50,7 +50,7 @@
     create: true
     state: present
     mode: "0644"
-    listen: Setup bat
+  listen: Setup bat
   tags:
     - Setup bat
 
@@ -81,8 +81,8 @@
 - name: Setup vscode
   ansible.builtin.debug:
     msg: "Replace this with actual tasks for configuring VSCode."
-    tags:
-      - vscode
+  tags:
+    - vscode
 
 - name: Init conda
   ansible.builtin.shell: conda init zsh
@@ -127,12 +127,12 @@
     create: true
     state: present
     mode: "0644"
-    listen: Setup starship
-    tags:
+  listen: Setup starship
+  tags:
       - Setup starship
 
 - name: Skip handler
   ansible.builtin.debug:
     msg: "No handler actions required for this package."
-    tags:
-      - handler
+  tags:
+    - handler

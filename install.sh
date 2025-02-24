@@ -1,5 +1,6 @@
 #!/bin/bash
 set -e
+
 # Function to print messages in green
 print_success() {
     echo -e "\033[0;32m$1\033[0m"
@@ -20,6 +21,15 @@ print_message() {
     echo -e "\033[1;34m$1\033[0m"  # Blue color for general messages
 }
 
+# Check if --check flag is passed
+check_mode=""
+for arg in "$@"; do
+    if [[ "$arg" == "--check" ]]; then
+        check_mode="--check"
+        print_warning "Running in dry-run mode (--check enabled)."
+    fi
+done
+
 # Confirmation prompt
 print_message "This script requires privileged access to install necessary packages and perform configuration tasks."
 read -p "Do you want to continue? This will require sudo privileges. (y/N) " response
@@ -27,7 +37,6 @@ read -p "Do you want to continue? This will require sudo privileges. (y/N) " res
 # Prompt for sudo password
 print_message "Please enter your sudo password to continue:"
 read -s sudo_password
-
 
 # Check the user's response
 if [[ ! "$response" =~ ^([yY][eE][sS]|[yY])$ ]]; then
@@ -65,7 +74,7 @@ fi
 
 # Run Ansible Playbook
 print_warning "Running Ansible playbook..."
-ansible-playbook playbook.yml -v -e "ansible_sudo_pass=$sudo_password"
+ansible-playbook playbook.yml -v -e "ansible_sudo_pass=$sudo_password" $check_mode
 
 # Check if the playbook execution was successful
 if [ $? -eq 0 ]; then
