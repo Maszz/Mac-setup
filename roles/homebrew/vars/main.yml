@@ -1,7 +1,7 @@
 homebrew_repo_url:
   brew: "https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh"
   gvm: "https://raw.githubusercontent.com/moovweb/gvm/master/binscripts/gvm-installer"
-  catpuccin_warp: "https://raw.githubusercontent.com/catppuccin/warp/main/dist"
+  catpuccin_warp: "https://raw.githubusercontent.com/catppuccin/warp/main/themes/"
 
 homebrew_packages:
   - name: gh
@@ -22,6 +22,13 @@ homebrew_packages:
   - name: golang
     handler: Setup gvm
   - name: lazygit
+  - name: yazi 
+  - name: ffmpeg 
+  - name: sevenzip 
+  - name: jq 
+  - name: poppler    
+  - name: imagemagick
+  - name: font-symbols-only-nerd-font
 homebrew_casks:
   - name: google-chrome
   - name: arc
@@ -38,3 +45,4 @@ homebrew_casks:
   - name: gpg-suite
   - name: postman
   - name: fig
+  - name:
